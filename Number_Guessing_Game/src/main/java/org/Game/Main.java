@@ -8,15 +8,16 @@ public class Main {
         Random rand = new Random();
         Scanner scanner = new Scanner(System.in);
 
-        int rounds = 3; // Number of rounds the player has
-        int maxAttemptsPerRound = 3; // Maximum attempts per round
-        int count = 0; // Count of guesses within the current round
-        int randomNumber;
+        int rounds = 3;
+        int maxAttemptsPerRound = 5;
+        int pointsPerGuess = 10;
+        int count = 0;
+        int totalPoints = 0;
 
         while (rounds > 0) {
-            randomNumber = rand.nextInt(101); // Generate a new random number for each round
+            int randomNumber = rand.nextInt(101); // Generate a new random number for each round
             count = 0;
-            System.out.println("Round " + (4 - rounds) + " - The number is " + randomNumber);
+            System.out.println("Round " + (4 - rounds));
 
             while (count < maxAttemptsPerRound) {
                 System.out.println("Enter your guess between (1 - 100): ");
@@ -26,8 +27,12 @@ public class Main {
                     count++;
 
                     if (playerGuess == randomNumber) {
+                        int roundPoints = (maxAttemptsPerRound - count + 1) * pointsPerGuess;
+                        totalPoints += roundPoints;
+
                         System.out.println("Correct! You won this round!");
                         System.out.println("It took you " + count + " tries to win this round.");
+                        System.out.println("You earned " + roundPoints + " points this round.");
                         break;
                     } else if (count == maxAttemptsPerRound) {
                         System.out.println("You lost this round. The number was " + randomNumber);
@@ -47,6 +52,7 @@ public class Main {
         }
 
         System.out.println("You've used all your rounds. Game over!");
+        System.out.println("Total points: " + totalPoints);
 
         scanner.close();
     }
